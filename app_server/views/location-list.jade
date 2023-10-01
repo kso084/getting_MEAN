@@ -1,64 +1,29 @@
 extends layout
 
+include _includes/sharedHTMLfunctions
+
 block content
   #banner.page-header
     .row 
-      .col-lg-6 
-        h1 Projects 
-          small with the location, time and quality of labour
+      .col-lg-8 
+        h1= pageHeader.title
+          small &nbsp;#{pageHeader.strapline}
   
   .row
     .col-xs-12.col-md-8
-      .row.list-group
+      each location in locations
         .col-xs-12.list-group-item
           h4 
-            a(href="/location") Getting MEAN 
+            a(href="/location")= location.name 
             small &nbsp;
-              span.glyphicon.glyphicon-floppy-saved
-              | &nbsp 
-              span.glyphicon.glyphicon-floppy-saved
-              | &nbsp 
-              span.glyphicon.glyphicon-floppy-saved
-              | &nbsp 
-              span.glyphicon.glyphicon-floppy-remove
-              | &nbsp 
-              span.glyphicon.glyphicon-floppy-remove 
-            span.badge.pull-right.badge-default 27&nbsph
-          p.address Realfagbygget, 5007 Bergen
+              +outputRating(location.rating)
+            span.badge.pull-right.badge-default= location.distance
+          p.address= location.address
           p 
-            span.label.label-warning Python 
-            | &nbsp 
-            span.label.label-warning Java 
-            | &nbsp 
-            span.label.label-warning Matlab 
-            | &nbsp
+            each facility in location.facilities 
+              span.label.label-warning= facility
+              | &nbsp 
 
-    .col-xs-12.col-md-8
-      .row.list-group 
-        .col-xs-12.list-group-item
-          h4 
-            a(href="/location") Dog Meet App
-            small &nbsp;
-              span.glyphicon.glyphicon-floppy-saved
-              | &nbsp 
-              span.glyphicon.glyphicon-floppy-saved
-              | &nbsp 
-              span.glyphicon.glyphicon-floppy-saved
-              | &nbsp 
-              span.glyphicon.glyphicon-floppy-saved
-              | &nbsp 
-              span.glyphicon.glyphicon-floppy-saved 
-            span.badge.pull-right.badge-default 139&nbsph
-          p.address Kristian Bings Vei 9, 5073
-          p 
-            span.label.label-warning Mongo DB
-            | &nbsp 
-            span.label.label-warning Express.js
-            | &nbsp 
-            span.label.label-warning Node.js
-            | &nbsp
-            span.label.label-warning Angular.js
-            | &nbsp
-            
+
     .col-xs-12.col-md-4
-      p.lead The MEAN stack is a JavaScript-based framework for developing web applications. MEAN is named after MongoDB, Express, Angular, and Node, the four key technologies that make up the layers of the stack. MongoDB — document database. Express(.js) — Node.js web framework. Angular(.js) — a client-side JavaScript framework.
+      p.lead The MEAN stack is a JavaScript-based framework for developing web applications. MEAN is named after MongoDB, Express, Angular, and Node, the four key facilities ologies that make up the layers of the stack. MongoDB — document database. Express(.js) — Node.js web framework. Angular(.js) — a client-side JavaScript framework.

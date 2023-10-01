@@ -1,10 +1,10 @@
 extends layout
 
+include _includes/sharedHTMLfunctions
+
 block content
-  #banner.page-header
-    .row 
-      .col-lg-12
-        h1 Getting MEAN 
+  .row.page-header: .col-lg-12 
+    h1= pageHeader.title 
   
   .row
     .col-xs-12.col-md-9
@@ -12,49 +12,36 @@ block content
         .col-xs-12.col-sm-6
           
           p.rating
-            span.glyphicon.glyphicon-floppy-saved
-            | &nbsp 
-            span.glyphicon.glyphicon-floppy-saved
-            | &nbsp 
-            span.glyphicon.glyphicon-floppy-saved
-            | &nbsp 
-            span.glyphicon.glyphicon-floppy-remove
-            | &nbsp 
-            span.glyphicon.glyphicon-floppy-remove 
-            p.address Realfagbygget, 5007 Bergen
+            +outputRating(location.rating)
+          p= location.address
             
             .panel.panel-primary
               .panel-heading
                 h2.panel-title Work hours
               .panel-body 
-                p Monday - Friday : 09:00am - 17:00pm
-                p Saturday : 11:00am - 14:00pm
-                p Sunday : day off
-              .panel.panel-primary
-                .panel-heading
-                  h2.panel-title Skillsneeded 
-                .panel-body 
-                  span.label.label-warning
-                    span.glyphicon.glyphicon-ok 
-                    | &nbsp;Python 
-                  | &nbsp;
-                  .panel-body 
-                  span.label.label-warning
-                    span.glyphicon.glyphicon-ok 
-                    | &nbsp;Java 
-                  | &nbsp;
-                  .panel-body 
-                  span.label.label-warning
-                    span.glyphicon.glyphicon-ok 
-                    | &nbsp;Matlab 
-                  | &nbsp;
+                each time in location.openingTimes 
+                  p 
+                    | #{time.days} :
+                    if time.closed 
+                      | closed 
+                    else 
+                      | #{time.opening} - #{time.closing}
             
-        .col-xs-12.col-sm-8.location-map 
-          .panel.panel-primary 
-            .panel-heading 
-              h2.panel-title Project image
+            .panel.panel-primary 
+              .panel-heading 
+                h2.panel-title Tech
             .panel-body 
-              img(src='https://media.thoughtspot.com/35707/1675952994-ts-3-ways-to-scale-res.png', alt= "image of a computer drawing", width="280" height="200")
+              each facility in location.facilities 
+                span.label.label-warning 
+                  span.glyphicon.glyphicon-floppy-saved 
+                  | &nbsp;#{facility}
+                | &nbsp;
+        .col-xs-12.col-sm-6
+          .panel.panel-primary 
+            .panel-heading
+              h2.panel-title Project image 
+            .panel-body 
+              img(src="https://spectrum.ieee.org/media-library/illustration-of-software-development-in-the-cloud.jpg?id=25591710&width=1200&height=900", width="275" height="200" style="float:left")
       .row
         .col-xs-12
           .panel.panel-primary.review-panel 
@@ -62,41 +49,17 @@ block content
               a.btn.btn-default.pull-right(href='/location/review/new') Add review 
               h2.panel-title Developer reviews 
             .panel-body.review-container
-              .row 
-                .review 
-                  .well.well-sm.review-header 
-                    span.rating
-                      span.glyphicon.glyphicon-floppy-saved
-                      | &nbsp 
-                      span.glyphicon.glyphicon-floppy-saved
-                      | &nbsp 
-                      span.glyphicon.glyphicon-floppy-saved
-                      | &nbsp 
-                      span.glyphicon.glyphicon-floppy-remove
-                      | &nbsp 
-                      span.glyphicon.glyphicon-floppy-remove
-                  span.reviewAuthor Bill Gates 
-                  small.reviewTimestamp 27 October 2023
-                .col-xs-12
-                  p Great work! This is by far the most amazing work i have ever seen developed.
-              .row
-                .review 
-                  .well.well-sm.review-header 
-                    span.rating
-                      span.glyphicon.glyphicon-floppy-saved
-                      | &nbsp 
-                      span.glyphicon.glyphicon-floppy-saved
-                      | &nbsp 
-                      span.glyphicon.glyphicon-floppy-saved
-                      | &nbsp 
-                      span.glyphicon.glyphicon-floppy-remove
-                      | &nbsp 
-                      span.glyphicon.glyphicon-floppy-remove
-                    span.reviewAuthor Bjarne Stroustrup 
-                    small.reviewTimestamp 27 September 2023
+              each review in location.reviews
+                .row 
+                  .review 
+                    .well.well-sm.review-header 
+                      span.rating
+                        +outputRating(review.Rating)
+                    span.reviewAuthor #{review.Author}
+                    small.reviewTimestamp #{review.timeStamp}
                   .col-xs-12
-                    p This app changed my life, i will never be the same after seeing this product.
+                    p !{(review.reviewText).replace(/\n/g,'<br/>')}
     .col-xs-12.col-md-3 
-      p.lead This project revolutionized the foundation of the known IT world to its core.
-      p There is no need for more reviews as the feat of this project says all that is needed.
+      p.lead # #{location.name} #{sidebar.context}
+      p= sidebar.callToAction
       
