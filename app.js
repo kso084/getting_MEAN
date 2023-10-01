@@ -1,8 +1,12 @@
-var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
+var favicon = require('path');
 var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var createError = require('http-errors');
+
+require('./app_server/models/db')
 
 // /app_server was added as we put routes and views in new folder named app_..
 var indexRouter = require('./app_server/routes/index');
