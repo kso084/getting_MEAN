@@ -71,6 +71,9 @@ module.exports.locationInfo = function(req,res){
 
 //GET "add review" page
 module.exports.addReview = function(req,res){
-    res.render('location-review-form',{title:'Add review'})
+    res.render('location-review-form',{
+        title:'Add review',
+        pageHeader: {title: 'Review Getting MEAN'}
+})
 }
 
