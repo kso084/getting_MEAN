@@ -22,6 +22,10 @@ var gracefulShutdown = function (MessageChannel, callback){
     });
 };
 
+require('./locations');
+
+/*
+Outdated code, Windows spesific
 process.once('SIGUSR2', function(){
     gracefulShutdown('nodemon restart',function(){
         process.kill(process.pid, 'SIGUSR2')
@@ -51,3 +55,4 @@ if(process.platform === "win64"){
         process.emit("SIGINT");
     });
 }
+*/
