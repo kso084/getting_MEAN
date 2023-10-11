@@ -25,6 +25,6 @@ var locationSchema = new mongoose.Schema({
     reviews: [reviewSchema]
 });
 
-mongoose.model('Location', locationSchema);
+module.exports = mongoose.model('Location', locationSchema);
 
 //db.locations.save({name: 'Getting MEAN', address: 'Realfagsbygget', rating: 3, facilities: ['MongoDB','Express', 'Node', 'Angular'],coords: [1,2], openingTimes:[{days: "Mon-Fri", opening: '8:00am', closing: '16:00pm', closed: false},{days:'Sat',opening: '9:00am', closing: '14:00pm', closed: false}, {days:'Sun', closed: true}]});
