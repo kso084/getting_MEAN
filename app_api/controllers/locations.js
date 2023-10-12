@@ -17,26 +17,27 @@ module.exports.locationsCreate = function(req,res){
 };
 module.exports.locationsReadOne = async (req, res) => {
     try{
-        const location = await Loc.findById(req.params.locationid).exec();
-            if(location == null){
-                sendJSONRespons(res,404, {"message":"locationid not found"});
-                return;
-            }else if(location.get("name")=="CastError"){
+        // first check if req.params and locationid exist in request 
+        if(req.params && req.params.locationid){
+            let location = await Loc.findById(req.params.locationid).exec()
+
+            //no location with that id
+            if (!location){
                 sendJSONRespons(res,404, {"message":"locationid not found"});
                 return;
             }
-
+        
+            //send locations
             sendJSONRespons(res, 200, location);
+    }   
+        else{
+            sendJSONRespons(res, 404, {"message":"no locationid in request "});
+    }
+    
     }catch(error){
-        res.status(500).json(error);
+        res.status(404).json(error);
     }
 }
 
 
-/*Book: Didnt work
-function(req,res){
-Loc.findById(req.params.locationid).then(function(err,location){
-    sendJSONRespons(res, 200, location)
-})
-};
-*/
+
