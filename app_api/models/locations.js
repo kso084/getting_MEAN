@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-//Futuer possible change is making the time in to minutes from midnight 
+//Future possible change is making the time in minutes from midnight 
 var openingHoursSchema = new mongoose.Schema({
     day: {type: String, required: true},
     opening: String,

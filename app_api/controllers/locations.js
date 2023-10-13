@@ -1,6 +1,6 @@
 
 var mongoose = require('mongoose');
-var Loc = require('../models/locations');//BOOK OUTDATED
+var Loc = require('../models/locations');
 
 var sendJSONRespons = function(res,status,content){
     res.status(status);
@@ -19,8 +19,7 @@ module.exports.locationsReadOne = async (req, res) => {
     try{
         // first check if req.params and locationid exist in request 
         if(req.params && req.params.locationid){
-            let location = await Loc.findById(req.params.locationid).exec()
-
+            let location = await Loc.findById(req.params.locationid).exec();
             //no location with that id
             if (!location){
                 sendJSONRespons(res,404, {"message":"locationid not found"});
@@ -31,7 +30,7 @@ module.exports.locationsReadOne = async (req, res) => {
             sendJSONRespons(res, 200, location);
     }   
         else{
-            sendJSONRespons(res, 404, {"message":"no locationid in request "});
+            sendJSONRespons(res, 404, {"message":"no locationid in request"});
     }
     
     }catch(error){
