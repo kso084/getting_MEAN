@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
-
-var dbURI = 'mongodb://127.0.0.1/Kristian_db'
+var gracefulShutdown;
+var dbURI = 'mongodb://127.0.0.1/Getting_MEAN'
 mongoose.connect(dbURI);
 
 mongoose.connection.on('connected', function(){
@@ -22,6 +22,7 @@ var gracefulShutdown = function (MessageChannel, callback){
     });
 };
 
+//gets the location schemas/models into the applications
 require('./locations');
 
 /*

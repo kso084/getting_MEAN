@@ -1,7 +1,7 @@
 
 var mongoose = require('mongoose');
-var Loc = require('../models/locations');//BOOK OUTDATED
-const { locationsReadOne } = require('./locations');
+var Loc = require('../models/locations');
+
 
 
 var sendJSONRespons = function(res,status,content){
@@ -16,7 +16,7 @@ module.exports.reviewsDeleteOne = function(req,res){
     sendJSONRespons(res, 200, {"status":"success"});  
 };
 module.exports.reviewsUpdateOne = function(req,res){
-    sendJSONRespons(res, 200, {"status":"success"});  
+    sendJSONRespons(res, 200, {"status":"success"});
 };
 
 module.exports.reviewsReadOne = async (req, res) => {
@@ -25,7 +25,7 @@ module.exports.reviewsReadOne = async (req, res) => {
         if(req.params && req.params.locationid && req.params.reviewid){
             //only selecting out name and reviews in location
             let location = await Loc.findById(req.params.locationid).select("name reviews").exec()
-            var review, respons;
+            let review, respons;
             //no location with that id
             if (!location){
                 sendJSONRespons(res,404, {"message":"locationid not found"});
@@ -34,9 +34,10 @@ module.exports.reviewsReadOne = async (req, res) => {
 
             //check for reviews
             if(location.reviews && location.reviews.length>0){
-                //find review subdocument
-                var id = mongoose.Types.ObjectId(req.params.reviewid);
-                review = location.reviews.id(id);
+                //find review subdocument                                          
+                let review_id = new mongoose.Types.ObjectId(req.params.reviewid);
+                console.log(review_id);
+                review = location.reviews.find({id:review_id});
 
                 //if no review found
                 if(!review){
@@ -51,7 +52,7 @@ module.exports.reviewsReadOne = async (req, res) => {
                         review : review,
                     };
 
-                //successful replay with review
+                //successful reply with review
                 sendJSONRespons(res,200,respons);
                 }
         }else{

@@ -15,6 +15,8 @@ module.exports.locationsCreate = function(req,res){
 };module.exports.locationsListByDistance = function(req,res){
     sendJSONRespons(res, 200, {"status":"success"});  
 };
+
+
 module.exports.locationsReadOne = async (req, res) => {
     try{
         // first check if req.params and locationid exist in request 
@@ -37,6 +39,5 @@ module.exports.locationsReadOne = async (req, res) => {
         res.status(404).json(error);
     }
 }
-
 
 
