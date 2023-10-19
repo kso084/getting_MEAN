@@ -1,6 +1,9 @@
 
 var mongoose = require('mongoose');
 var Loc = require('../models/locations');
+var Rev = require('../models/reviews');
+
+
 
 
 
@@ -21,6 +24,7 @@ module.exports.reviewsUpdateOne = function(req,res){
 
 module.exports.reviewsReadOne = async (req, res) => {
     try{
+
         // first check if req.params, locationid and reviewid exist in request 
         if(req.params && req.params.locationid && req.params.reviewid){
             //only selecting out name and reviews in location
@@ -36,14 +40,13 @@ module.exports.reviewsReadOne = async (req, res) => {
             if(location.reviews && location.reviews.length>0){
                 //find review subdocument                                          
                 let review_id = new mongoose.Types.ObjectId(req.params.reviewid);
-                console.log(review_id);
-                review = location.reviews.find({id:review_id});
+                review = Loc.location('reviews').find({id:review_id});
 
                 //if no review found
                 if(!review){
                     sendJSONRespons(res, 404, {"meassage":"reviewid not found"})
                 }else{
-                    //create repsons
+                    //create respons
                     respons = {
                         location: {
                             name : location.name,

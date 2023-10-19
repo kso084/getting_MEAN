@@ -3,6 +3,9 @@ var router = express.Router();
 var ctrlLocations = require('../controllers/locations');
 var ctrlReviews = require('../controllers/reviews');
 
+//seed
+router.get('/seedDB', ctrlLocations.seedDB);
+
 //locations
 router.get('/locations', ctrlLocations.locationsListByDistance);
 router.post('/locations', ctrlLocations.locationsCreate);
